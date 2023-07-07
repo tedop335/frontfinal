@@ -67,7 +67,7 @@ registrationForm.addEventListener('submit', (e) => {
       data.users = users;
 
       return fetch('db.json', {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
