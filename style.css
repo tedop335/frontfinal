@@ -24,8 +24,11 @@ nav {
 }
 
 .logo img {
-  width: 32px;
-  max-height: 32px;
+  width: 128px;
+  height: 32px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
 }
 
 .nav-links {
