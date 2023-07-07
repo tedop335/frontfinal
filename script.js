@@ -2,8 +2,10 @@ function getProductDetails(productId) {
   fetch('db.json')
     .then(response => response.json())
     .then(data => {
+      console.log('Fetched data:', data)
       const productInfo = document.querySelector('#product-info');
       const product = data.products.find(item => item.id === productId);
+      console.log('Product:', product);
 
       if (product) {
         const { id, image, title, status, description } = product;
