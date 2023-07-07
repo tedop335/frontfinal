@@ -49,7 +49,7 @@ fetch('db.json')
         <h3>${title}</h3>
         <p>Status: ${status}</p>
         <p>Description: ${description}</p>
-        <a href="details.html?id=${id}">View Details</a>
+        <a href="details.html?id=${id}">დეტალების ნახვა</a>
       `;
 
       productContainer.appendChild(productCard);
