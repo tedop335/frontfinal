@@ -45,7 +45,7 @@ registrationForm.addEventListener('submit', (e) => {
   const confirmPassword = document.querySelector('#confirm-password').value;
 
   if (!validateEmail(email) || name.trim() === '' || password.length < 5 || password !== confirmPassword) {
-    formMessage.textContent = 'Please enter valid information.';
+    formMessage.textContent = 'გთხოვთ შეიყვანეთ სწორი ინფორმაცია.';
     return;
   }
 
@@ -56,16 +56,36 @@ registrationForm.addEventListener('submit', (e) => {
     password
   };
 
-  let users = JSON.parse(localStorage.getItem('users')) || [];
-  users.push(user);
-  localStorage.setItem('users', JSON.stringify(users));
+  fetch('db.json')
+    .then(response => response.json())
+    .then(data => {
+      data.users.push(user);
 
-  formMessage.textContent = 'Registration successful!';
-  registrationForm.reset();
-  formMessage.textContent = '';
+      return fetch('db.json', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+    })
+    .then(response => {
+      if (response.ok) {
+        formMessage.textContent = 'რეგისტრაცია წარმატებით დასრულდა!';
+        registrationForm.reset();
+        formMessage.textContent = '';
+      } else {
+        throw new Error('რეგისტრაცია ვერ შესრულდა.');
+      }
+    })
+    .catch(error => {
+      console.log('Error:', error);
+      formMessage.textContent = 'რეგისტრაცია ვერ შესრულდა. სცადეთ მოგვიანებით.';
+    });
 });
 
 function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
+
