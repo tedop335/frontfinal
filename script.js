@@ -1,5 +1,5 @@
 function getProductDetails(productId) {
-  fetch(`db.json`)
+  fetch('db.json')
     .then(response => response.json())
     .then(data => {
       const productInfo = document.querySelector('#product-info');
@@ -23,7 +23,6 @@ function getProductDetails(productId) {
     });
 }
 
-
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('id');
 
@@ -32,7 +31,7 @@ if (productId) {
 }
 
 
-fetch(`db.json`)
+fetch('db.json')
   .then(response => response.json())
   .then(data => {
     const productContainer = document.querySelector('.product-list');
@@ -48,7 +47,7 @@ fetch(`db.json`)
         <h3>${title}</h3>
         <p>Status: ${status}</p>
         <p>Description: ${description}</p>
-        <a href="details.html?id=${id}">დეტაების ნახვა</a>
+        <a href="details.html?id=${id}">View Details</a>
       `;
 
       productContainer.appendChild(productCard);
@@ -57,7 +56,6 @@ fetch(`db.json`)
   .catch(error => {
     console.log('Error:', error);
   });
-
 
 const registrationForm = document.querySelector('#registration-form');
 const formMessage = document.querySelector('#form-message');
@@ -71,12 +69,10 @@ registrationForm.addEventListener('submit', (e) => {
   const password = document.querySelector('#password').value;
   const confirmPassword = document.querySelector('#confirm-password').value;
 
-
   if (!validateEmail(email) || name.trim() === '' || password.length < 5 || password !== confirmPassword) {
-    formMessage.textContent = 'გთხოვთ შეიყვანეთ სწორი ინფორმაცია.';
+    formMessage.textContent = 'Please enter valid information.';
     return;
   }
-
 
   const user = {
     email,
@@ -85,15 +81,11 @@ registrationForm.addEventListener('submit', (e) => {
     password
   };
 
-
   let users = JSON.parse(localStorage.getItem('users')) || [];
   users.push(user);
-
-
   localStorage.setItem('users', JSON.stringify(users));
 
   formMessage.textContent = 'Registration successful!';
-
   registrationForm.reset();
   formMessage.textContent = '';
 });
