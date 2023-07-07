@@ -32,34 +32,6 @@ if (productId) {
   getProductDetails(parseInt(productId));
 }
 
-
-fetch('db.json')
-  .then(response => response.json())
-  .then(data => {
-    const productContainer = document.querySelector('.product-list');
-    productContainer.innerHTML = '';
-
-    data.products.forEach(product => {
-      const { id, image, title, status, description } = product;
-
-      const productCard = document.createElement('div');
-      productCard.classList.add('product-card');
-
-      productCard.innerHTML = `
-        <img src="${image}" alt="${title}">
-        <h3>${title}</h3>
-        <p>Status: ${status}</p>
-        <p>Description: ${description}</p>
-        <a href="details.html?id=${id}">დეტალების ნახვა</a>
-      `;
-
-      productContainer.appendChild(productCard);
-    });
-  })
-  .catch(error => {
-    console.log('Error:', error);
-  });
-
 const registrationForm = document.querySelector('#registration-form');
 const formMessage = document.querySelector('#form-message');
 
