@@ -56,10 +56,15 @@ registrationForm.addEventListener('submit', (e) => {
     password
   };
 
+  
+
   fetch('db.json')
     .then(response => response.json())
     .then(data => {
-      data.users.push(user);
+      const users = data.users || [];
+      users.push(user);
+
+      data.users = users;
 
       return fetch('db.json', {
         method: 'PUT',
@@ -69,17 +74,13 @@ registrationForm.addEventListener('submit', (e) => {
         body: JSON.stringify(data)
       });
     })
-    .then(response => {
-      if (response.ok) {
-        formMessage.textContent = 'რეგისტრაცია წარმატებით დასრულდა!';
-        registrationForm.reset();
-        formMessage.textContent = '';
-      } else {
-        throw new Error('რეგისტრაცია ვერ შესრულდა.');
-      }
+    .then(() => {
+      console.log('Registration successful!');
+      formMessage.textContent = 'რეგისტრაცია წარმატებით დასრულდა!';
+      registrationForm.reset();
     })
     .catch(error => {
-      console.log('Error:', error);
+      console.error('Error:', error);
       formMessage.textContent = 'რეგისტრაცია ვერ შესრულდა. სცადეთ მოგვიანებით.';
     });
 });
