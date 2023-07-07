@@ -37,6 +37,7 @@ fetch('db.json')
   .then(response => response.json())
   .then(data => {
     const productContainer = document.querySelector('.product-list');
+    productContainer.innerHTML = '';
 
     data.products.forEach(product => {
       const { id, image, title, status, description } = product;
